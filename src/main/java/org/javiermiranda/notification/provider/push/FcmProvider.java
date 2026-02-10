@@ -17,6 +17,7 @@ public class FcmProvider implements NotificationProvider<PushNotification> {
 
     @Override
     public void send(PushNotification notification) throws Exception {
+        if (projectId == null || serviceAccountPath == null) throw new IllegalStateException("Firebase Cloud Messaging credentials missing");
         log.info("[FCM] Autenticando con Service Account: {}", serviceAccountPath);
         log.info("[FCM] Enviando a proyecto: projects/{}/messages:send", projectId);
         log.info("[FCM] Payload: { token: {}, notification: { title: '{}', body: '{}' }, data: {} }",
@@ -26,4 +27,9 @@ public class FcmProvider implements NotificationProvider<PushNotification> {
 
     @Override
     public String getProviderName() { return "Firebase Cloud Messaging"; }
+
+    @Override
+    public int getPriority() {
+        return 100;
+    }
 }

@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TwilioProvider</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.javiermiranda.notification.provider.sms</a>
+</div>
+
+<h1>Coverage Summary for Class: TwilioProvider (org.javiermiranda.notification.provider.sms)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TwilioProvider</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (3/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.7%
+  </span>
+  <span class="absValue">
+    (13/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.javiermiranda.notification.provider.sms;
+&nbsp;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;import org.javiermiranda.notification.model.SmsNotification;
+&nbsp;import org.javiermiranda.notification.spi.NotificationProvider;
+&nbsp;
+<b class="fc">&nbsp;@Slf4j</b>
+&nbsp;public class TwilioProvider implements NotificationProvider&lt;SmsNotification&gt; {
+&nbsp;
+&nbsp;    private final String accountSid;
+&nbsp;    private final String authToken;
+&nbsp;    private final String fromNumber; // Twilio requiere un número origen comprado
+&nbsp;
+<b class="fc">&nbsp;    public TwilioProvider(String accountSid, String authToken, String fromNumber) {</b>
+<b class="fc">&nbsp;        this.accountSid = accountSid;</b>
+<b class="fc">&nbsp;        this.authToken = authToken;</b>
+<b class="fc">&nbsp;        this.fromNumber = fromNumber;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void send(SmsNotification notification) throws Exception {
+<b class="pc">&nbsp;        if (accountSid == null || authToken == null) throw new IllegalStateException(&quot;Twilio credentials missing&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        log.info(&quot;[Twilio] Preparando request POST https://api.twilio.com/2010-04-01/Accounts/{}/Messages.json&quot;, accountSid);</b>
+<b class="fc">&nbsp;        log.info(&quot;[Twilio] Auth: Basic ****&quot;);</b>
+<b class="fc">&nbsp;        log.info(&quot;[Twilio] From: {}&quot;, fromNumber);</b>
+<b class="fc">&nbsp;        log.info(&quot;[Twilio] To: {}&quot;, notification.phoneNumber());</b>
+<b class="fc">&nbsp;        log.info(&quot;[Twilio] Body: {}&quot;, notification.message());</b>
+<b class="fc">&nbsp;        Thread.sleep(100);</b>
+&nbsp;
+<b class="fc">&nbsp;        log.info(&quot;[Twilio] Respuesta: 201 CREATED. SID: SMxxxxxxxxxxxxxxxx&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public String getProviderName() { return &quot;Twilio&quot;; }</b>
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public int getPriority() { return 10; }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-02-10 12:59</div>
+</div>
+</body>
+</html>

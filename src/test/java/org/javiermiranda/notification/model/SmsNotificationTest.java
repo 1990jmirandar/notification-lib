@@ -20,4 +20,17 @@ class SmsNotificationTest {
         String longMessage = "a".repeat(1601);
         assertThrows(IllegalArgumentException.class, () -> new SmsNotification("+123456", longMessage));
     }
+
+    @Test
+    @DisplayName("Debe rechazar números sin código de país o formato inválido")
+    void shouldRejectInvalidNumbers() {
+        assertThrows(IllegalArgumentException.class, () -> new SmsNotification("0991234567", "Msg"));
+        assertThrows(IllegalArgumentException.class, () -> new SmsNotification("invalid", "Msg"));
+    }
+
+    @Test
+    @DisplayName("Debe rechazar mensajes vacíos")
+    void shouldRejectEmptyMessage() {
+        assertThrows(IllegalArgumentException.class, () -> new SmsNotification("+593991234567", ""));
+    }
 }

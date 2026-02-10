@@ -17,6 +17,10 @@ public record SmsNotification(
         if (!E164_PATTERN.matcher(phoneNumber).matches()) {
             throw new IllegalArgumentException("El número de telefono debe de estar dentro del formato E.164 (e.j., +5939999999): " + phoneNumber);
         }
+
+        if (message.isEmpty()) {
+            throw new IllegalArgumentException("SMS debe de contener un mensaje");
+        }
         if (message.length() > 1600) {
             throw new IllegalArgumentException("SMS demasiado largo, límite 1600 caracteres");
         }
